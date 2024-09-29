@@ -1,0 +1,114 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Mental Health AI Support</title>
+    <link rel="stylesheet" href="style.css">
+    
+</head>
+<body>
+    <!-- Navigation Bar -->
+    <nav>
+        <div class="logo">MindSupportAI</div>
+        <ul>
+            <li><a href="#home">Home</a></li>
+            <li><a href="#support">Get Support</a></li>
+            <li><a href="#resources">Resources</a></li>
+            <li><a href="#contact">Contact Us</a></li>
+        </ul>
+    </nav>
+
+    <!-- Hero Section -->
+    <section id="home" class="hero-section">
+        <div class="content">
+            <h1>AI for Mental Health & Emotional Support</h1>
+            <p>Your emotional well-being matters. Get the support you need, 24/7.</p>
+            <a href="#support" class="btn">Get Support Now</a>
+        </div>
+    </section>
+
+    <!-- Support Section with AI Chatbot -->
+    <!-- Support Section with AI Chatbot -->
+<section id="support" class="support-section">
+    <h2>How Can We Help You?</h2>
+    <p>Our AI-driven chatbot is here to listen to your feelings and provide personalized mental health advice.</p>
+    
+    <!-- Chatbox -->
+    <!-- <div class="chatbox" id="chatbox">
+        <div id="chatlog" style="border: 1px solid #ccc; padding: 10px; height: 300px; overflow-y: scroll;"></div> -->
+        <!-- <input type="text" id="userInput" placeholder="Type your message..." /> -->
+       
+        <!-- <button onclick="sendMessage()">Send</button> -->
+    <!-- </div> -->
+</section>
+
+
+    <!-- Resources Section -->
+    <section id="resources" class="resources-section">
+        <h2>Helpful Resources</h2>
+        <ul>
+            <li><a target="_blank" href="https://www.verywellmind.com/the-best-mental-health-blogs-5205192">Mental Health Tips</a></li>
+            <li><a href="https://blog.calm.com/blog/breathing-exercises-for-anxiety">Breathing Exercises</a></li>
+            <li><a href="https://www.udemy.com/course/introduction-to-mindful-yoga-and-mindfulness/?utm_source=bing&utm_medium=udemyads&utm_campaign=BG-Search_DSA_Gamma_NonP_la.EN_cc.India&campaigntype=Search&portfolio=Bing&language=EN&product=Course&test=&audience=DSA&topic=&priority=Gamma&utm_content=deal4584&utm_term=_._ag_1328212434750622_._ad__._kw_PerDev%20en_._de_c_._dm__._pl__._ti_dat-2334812942213649:loc-90_._li_149333_._pd__._&matchtype=b&msclkid=946c556f2124152609d53396a3637d0c">Mindfulness Practices</a></li>
+            <li><a href="#">Crisis Hotlines</a></li>
+        </ul>
+    </section>
+
+    <!-- Contact Section -->
+    <section id="contact" class="contact-section">
+        <h2>Contact Us</h2>
+        <p>Have questions or need further help? Reach out to us.</p>
+        <p>Email: support@mindsupportai.com</p>
+        <p>WhatsApp: +91-1234567890</p>
+        <script src="https://cdn.botpress.cloud/webchat/v2.1/inject.js"></script>
+        <script src="https://mediafiles.botpress.cloud/02730dcf-4e1d-4368-9714-612993e201b9/webchat/v2.1/config.js"></script>
+    </section>
+
+    <!-- Footer -->
+    <footer>
+        <p>© 2024 MindSupportAI. All rights reserved.</p>
+    </footer>
+
+    <!-- JavaScript -->
+    <script>
+        // Function to handle API integration with Dialogflow
+        const dialogflowAPI = 'https://dialogflow.googleapis.com/v2/projects/YOUR-PROJECT-ID/agent/sessions/YOUR-SESSION-ID:detectIntent';
+
+        async function sendMessage() {
+            const userInput = document.getElementById('userInput').value;
+            document.getElementById('chatlog').innerHTML += '<p><strong>You:</strong> ' + userInput + '</p>';
+            
+            // Prepare request payload
+            const body = {
+                queryInput: {
+                    text: {
+                        text: userInput,
+                        languageCode: "en"
+                    }
+                }
+            };
+
+            // Fetch response from Dialogflow
+            const response = await fetch(dialogflowAPI, {
+                method: "POST",
+                headers: {
+                    "Authorization": "Bearer YOUR-OAUTH-TOKEN",
+                    "Content-Type": "application/json"
+                },
+                body: JSON.stringify(body)
+            });
+
+            const result = await response.json();
+            const chatbotResponse = result.queryResult.fulfillmentText;
+            
+            // Display chatbot response
+            document.getElementById('chatlog').innerHTML += '<p><strong>Bot:</strong> ' + chatbotResponse + '</p>';
+            document.getElementById('userInput').value = '';  // Clear input field
+
+            
+        }
+    </script>
+</body>
+</html>
+
